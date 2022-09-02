@@ -15,10 +15,9 @@ namespace eShop.Controllers
             return View(model.CreateModel(search,4,page));
         }
 
-        public ActionResult About()
+        public ActionResult AddToCart(int productId)
         {
-            ViewBag.Message = "Your application description page.";
-
+            Session["cart"]
             return View();
         }
 
