@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using eShop.Models.Home;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,6 +13,26 @@
 
 </head>
 <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row">
@@ -24,21 +45,21 @@
 
             <div class="col-md-6 col-sm-6 col-xs-6">
                 @*<div class="account">
-            <ul>
-                <li>
-                    <div class="hidden-xs">
-                        <h4><a>Call</a></h4>
-                        <p>21028-#####</p>
-                    </div>
+                        <ul>
+                            <li>
+                                <div class="hidden-xs">
+                                    <h4><a>Call</a></h4>
+                                    <p>21028-#####</p>
+                                </div>
 
-                    <div class="visible-xs">
+                                <div class="visible-xs">
 
-                        <p>21028-#####</p>
-                    </div>
+                                    <p>21028-#####</p>
+                                </div>
 
-                </li>
-            </ul>
-        </div>*@
+                            </li>
+                        </ul>
+                    </div>*@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Cart(3) <b class="caret"></b></a>
@@ -47,7 +68,9 @@
                             {
                                 foreach (Item item in (List<Item>)Session["cart"])
                                 {
-                                    <li><a href="#">@item.Product.ProductName (@item.Quantity)</a></li>
+                                    <li>
+                                        <a href="@Url.Action("RemoveFromCart", "Home", new {productId=item.Product.ProductId })">@item.Product.ProductName (@item.Quantity)<i class="fa fa-times"></i></a>
+                                    </li>
                                 }
                             }
                             <li class="divider"></li>

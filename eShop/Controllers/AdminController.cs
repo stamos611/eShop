@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace eShop.Controllers
 {
+    
     public class AdminController : Controller
     {
         public GenericUnit _unit = new GenericUnit();
@@ -26,7 +27,7 @@ namespace eShop.Controllers
             return list;
         }
         
-        public ActionResult Dashboard()
+        public ActionResult Index()
         {
             return View();
         }
@@ -42,16 +43,17 @@ namespace eShop.Controllers
             return UpdateCategory(0);
         }
 
-        public ActionResult UpdateCategory(int categoryId=0)
+        public ActionResult UpdateCategory(int categoryId)
         {
             CategoryDetail cd;
-                if (categoryId != 0)
+                if (categoryId !=null)
                 {
-                cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unit.GetRepositoryInstance<Tbl_Category>().GetFirstorDefault(categoryId)));
+                    cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unit.GetRepositoryInstance<Tbl_Category>()
+                        .GetFirstorDefault(categoryId)));
                 }
                 else
                 {
-                cd = new CategoryDetail();
+                    cd = new CategoryDetail();
                 }
             return View("UpdateCategory",cd);
         }

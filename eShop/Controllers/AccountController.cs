@@ -12,7 +12,7 @@ using eShop.Models;
 
 namespace eShop.Controllers
 {
-    [Authorize]
+    
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

@@ -15,21 +15,21 @@
     <div class="carousel-inner">
         <div class="item active">
             <div class="imgOverlay"></div>
-            <img style="height:320px;width:100%" src="~/images/serafeim.jpg" alt="First slide">
+            <img style="height:320px;width:100%" src="~/images/shirts.jpg" alt="First slide">
             <div class="carousel-caption">
                 <h3>Shirts</h3>
             </div>
         </div>
         <div class="item">
             <div class="imgOverlay"></div>
-            <img style="height:320px;width:100%" src="~/images/serafeim.jpg" alt="Second slide">
+            <img style="height:320px;width:100%" src="~/images/pants.jpg" alt="Second slide">
             <div class="carousel-caption">
                 <h3>Pants</h3>
             </div>
         </div>
         <div class="item">
             <div class="imgOverlay"></div>
-            <img style="height:320px;width:100%" src="~/images/serafeim.jpg" alt="Second slide">
+            <img style="height:320px;width:100%" src="~/images/accessories.jpg" alt="Second slide">
 
             <div class="carousel-caption">
                 <h3>Accessories</h3>
@@ -78,13 +78,16 @@
 
                     @if (item.Quantity > 0)
                     {
-                        <a class="pull-right" href="#"><i class="fa fa-shopping-cart"></i></a>
+                        using (Html.BeginForm("AddToCart", "Home", new { productId =item.ProductId }, FormMethod.Post))
+                        {
+                            <button type="submit" class="pull-rigt"><i class="fa fa-shopping-cart"></i></button>
+                        }
                         <p>Avallable</p>
                     }
-                    else
-                    {
-                        <p>Not Avallable</p>
-                    }
+                else
+                {
+                    <p>Not Avallable</p>
+                }
 
                     <div class="product-item-badge">
                         @if (item.IsFeatured == true)
