@@ -11,7 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace eShop.Controllers
 {
-    
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         public GenericUnit _unit = new GenericUnit();

@@ -21,13 +21,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("eShop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse">                
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @Html.Action("Navbar", "Home")
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -43,23 +41,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                @*<div class="account">
-                        <ul>
-                            <li>
-                                <div class="hidden-xs">
-                                    <h4><a>Call</a></h4>
-                                    <p>21028-#####</p>
-                                </div>
-
-                                <div class="visible-xs">
-
-                                    <p>21028-#####</p>
-                                </div>
-
-                            </li>
-                        </ul>
-                    </div>*@
+            <div class="col-md-6 col-sm-6 col-xs-6">                
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Cart(3) <b class="caret"></b></a>
@@ -74,7 +56,7 @@
                                 }
                             }
                             <li class="divider"></li>
-                            <li><a href="#">IT</a></li>
+                            <li><a href="@Url.Action("Checkout","Home")">Checkout</a></li>
                         </ul>
                     </li>
                 </ul>

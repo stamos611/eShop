@@ -183,6 +183,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="DAL\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1676,10 +1677,14 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="images\accessories.jpg" />
+    <Content Include="images\armani.jpg" />
+    <Content Include="images\nikehat.jpg" />
     <Content Include="images\pants.jpg" />
+    <Content Include="images\pullnbear.jpg" />
+    <Content Include="images\rayban.jpg" />
     <Content Include="images\search.png" />
-    <Content Include="images\serafeim.jpg" />
     <Content Include="images\shirts.jpg" />
+    <Content Include="images\zara.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="DAL\Model1.edmx">
@@ -1811,6 +1816,11 @@
     <Content Include="Views\Admin\CategoryEdit.cshtml" />
     <Content Include="Views\Home\CheckoutDetails.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Home\_LoggedInNavBar.cshtml" />
+    <Content Include="Views\Home\_NavBar.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Account\RegisterRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace eShop.Controllers
 {
-    
+    [AllowAnonymous]   
     public class HomeController : Controller
     {
         DbeShopEntities ctx = new DbeShopEntities();
@@ -83,6 +83,15 @@ namespace eShop.Controllers
             }
             Session["cart"] = cart;
             return Redirect("Index");
+        }
+
+        public ActionResult NavBar()
+        {
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+            {
+                return PartialView("_LoggedInNavbar");
+            }
+            return PartialView("_Navbar");
         }
     }
 }
