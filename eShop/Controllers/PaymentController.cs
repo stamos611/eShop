@@ -19,9 +19,9 @@ namespace eShop.Controllers
                 if (string.IsNullOrEmpty(PayerId))
                 {
                     string baseUri = Request.Url.Scheme + "://" + Request.Url.Authority
-                        + "PaymentWithPaypal/PaymentWithPaypal?";
+                        + "/Payment/PaymentWithPaypal?";
                     var Guid = Convert.ToString((new Random()).Next(1000000));
-                    var createPayment = this.CreatePayment(apiContext, baseUri + "guid" + Guid);
+                    var createPayment = this.CreatePayment(apiContext, baseUri + "guid=" + Guid);
                     var links = createPayment.links.GetEnumerator();
                     string paypalRedirectURL = null;
                     while (links.MoveNext())
@@ -34,6 +34,8 @@ namespace eShop.Controllers
                         }
 
                     }
+                    Session.Add(Guid, createPayment.id);
+                    return Redirect(paypalRedirectURL);
                 }
                 else
                 {
@@ -48,80 +50,84 @@ namespace eShop.Controllers
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                return View("FailureView");
+                Console.WriteLine(ex);
+                return View("SuccessView");
             }
             return View("SuccessView");
         }
-        private object ExecutePayment(APIContext apicontext, string payerId, string PaymentId)
-        {
-            var paymentExecution = new PaymentExecution() { payer_id = payerId };
-            this.payment = new Payment() { id = PaymentId };
-            return this.payment.Execute(apicontext, paymentExecution);
-        }
-
         private PayPal.Api.Payment payment;
-        private Payment CreatePayment(APIContext apicontext,string redirectURL)
+        private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
         {
-            var ItemLIst = new ItemList() { items = new List<Item>() };
-
-            if (Session["cart"] != null)
+            var paymentExecution = new PaymentExecution()
             {
-                List<Models.Home.Item> cart = (List<Models.Home.Item>)(Session["cart"]);
-                foreach (var item in cart)
-                {
-                    ItemLIst.items.Add(new Item()
-                    {
-                        name = item.Product.ProductName.ToString(),
-                        currency = "EURO",
-                        price = item.Product.Price.ToString(),
-                        quantity = item.Product.Quantity.ToString(),
-                        sku = "sku"
-                    });
-                }
-
-                var payer = new Payer() { payment_method = "paypal" };
-                var redirURL = new RedirectUrls()
-                {
-                    cancel_url = redirectURL + "&Cancel=true",
-                    return_url = redirectURL
-                };
-                var details = new Details()
-                {
-                    tax = "1",
-                    shipping = "1",
-                    subtotal = "1"
-                };
-
-                var amount = new Amount()
-                {
-                    currency = "ERUO",
-
-                    total = Session["SesTotal"].ToString(),
-                    details = details
-                };
-
-                var transactionList = new List<Transaction>();
-                transactionList.Add(new Transaction()
-                {
-                    description = "Transaction Description",
-                    invoice_number = "#100000",
-                    amount = amount,
-                    item_list = ItemLIst
-
-                });
-
-                this.payment = new Payment()
-                {
-                    intent = "sale",
-                    payer = payer,
-                    transactions = transactionList,
-                    redirect_urls = redirURL
-                };
-            }
-            return this.payment.Create(apicontext);
-
+                payer_id = payerId
+            };
+            this.payment = new Payment()
+            {
+                id = paymentId
+            };
+            return this.payment.Execute(apiContext, paymentExecution);
+        }
+        private Payment CreatePayment(APIContext apiContext, string redirectUrl)
+        {
+            //create itemlist and add item objects to it  
+            var itemList = new ItemList()
+            {
+                items = new List<Item>()
+            };
+            //Adding Item Details like name, currency, price etc  
+            itemList.items.Add(new Item()
+            {
+                name = "Item Name comes here",
+                currency = "USD",
+                price = "1",
+                quantity = "1",
+                sku = "sku"
+            });
+            var payer = new Payer()
+            {
+                payment_method = "paypal"
+            };
+            // Configure Redirect Urls here with RedirectUrls object  
+            var redirUrls = new RedirectUrls()
+            {
+                cancel_url = redirectUrl + "&Cancel=true",
+                return_url = redirectUrl
+            };
+            // Adding Tax, shipping and Subtotal details  
+            var details = new Details()
+            {
+                tax = "1",
+                shipping = "1",
+                subtotal = "1"
+            };
+            //Final amount with details  
+            var amount = new Amount()
+            {
+                currency = "USD",
+                total = "3", // Total must be equal to sum of tax, shipping and subtotal.  
+                details = details
+            };
+            var transactionList = new List<Transaction>();
+            // Adding description about the transaction  
+            transactionList.Add(new Transaction()
+            {
+                description = "Transaction description",
+                invoice_number = "your generated invoice number", //Generate an Invoice No  
+                amount = amount,
+                item_list = itemList
+            });
+            this.payment = new Payment()
+            {
+                intent = "sale",
+                payer = payer,
+                transactions = transactionList,
+                redirect_urls = redirUrls
+            };
+            // Create a payment using a APIContext  
+            return this.payment.Create(apiContext);
         }
     }
 }

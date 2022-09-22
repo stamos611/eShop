@@ -42,6 +42,14 @@ namespace eShop.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult AddCategory(Tbl_Category tbl)
+        {
+            _unit.GetRepositoryInstance<Tbl_Category>().Add(tbl);
+            tbl.IsActive = true;
+            tbl.IsDelete = false;
+            return RedirectToAction("Categories");
+        }
 
         public ActionResult UpdateCategory(int categoryId=0)
         {

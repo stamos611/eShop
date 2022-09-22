@@ -6,32 +6,34 @@ using System.Web;
 
 namespace eShop
 {
-    public class PaypalConfiguration
+    public static class PaypalConfiguration
     {
-        public readonly static string clientId;
-        public readonly static string clientSecret;
-
+        //Variables for storing the clientID and clientSecret key  
+        public readonly static string ClientId;
+        public readonly static string ClientSecret;
+        //Constructor  
         static PaypalConfiguration()
         {
-            var config = getconfig();
-            clientId = "AYgnfRtmL8oBho2XZetPjwGSqTBqwcZxcIWT0OYLJK_Jow";
-            clientSecret = "EJoG_4mdDp-Qp9U_pZAfT_l4bKztmm7QE-2tPbw0aNmP3BS_o8w5Q6VfEX_hZ371IFb4txOLtYFFwZ_F";
+            var config = GetConfig();
+            ClientId = config["clientId"];
+            ClientSecret = config["clientSecret"];
         }
-
-        private static Dictionary<string,string> getconfig()
+        // getting properties from the web.config  
+        public static Dictionary<string, string> GetConfig()
         {
             return PayPal.Api.ConfigManager.Instance.GetProperties();
         }
         private static string GetAccessToken()
         {
-            //string accessToken = new OAuthTokenCredential(clientId, clientSecret, getconfig()).GetAccessToken();
-            string accessToken = "access_token$sandbox$y4yky5f2447yc7gy$691290088fd949db7ee5811c8bbdcc33";
+            // getting accesstocken from paypal  
+            string accessToken = new OAuthTokenCredential(ClientId, ClientSecret, GetConfig()).GetAccessToken();
             return accessToken;
         }
         public static APIContext GetAPIContext()
         {
+            // return apicontext object by invoking it with the accesstoken  
             APIContext apiContext = new APIContext(GetAccessToken());
-            apiContext.Config = getconfig();
+            apiContext.Config = GetConfig();
             return apiContext;
         }
     }

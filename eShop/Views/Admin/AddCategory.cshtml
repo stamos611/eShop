@@ -13,9 +13,26 @@
 
         <div class="form-group">
             <label class="control-label">Category Name</label>
-
             @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control", placeholder = "Enter category Name", required = "required", autofocus = "autofocus" })
             @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBox("IsActive")
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <<div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsDelete, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBox("IsDelete")
+                    @Html.ValidationMessageFor(model => model.IsDelete, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
 
         <a onclick="window.history.back();" class="btn btn-danger">Cancel</a>
@@ -23,7 +40,7 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Categories","Admin")
+        @Html.ActionLink("Back to List", "Categories", "Admin")
     </div>
 
 </div>
