@@ -25,6 +25,33 @@ namespace eShop.Controllers
         {
             return View();
         }
+        public ActionResult DecreaseQty(int productId)
+        {
+            if (Session["cart"] != null)
+            {
+                List<Item> cart = (List<Item>)Session["cart"];
+                var product = ctx.Tbl_Product.Find(productId);
+                foreach (var item in cart)
+                {
+                    if (item.Product.ProductId == productId)
+                    {
+                        int prevQty = item.Quantity;
+                        if (prevQty > 0)
+                        {
+                            cart.Remove(item);
+                            cart.Add(new Item()
+                            {
+                                Product = product,
+                                Quantity = prevQty - 1
+                            });
+                        }
+                        break;
+                    }
+                }
+                Session["cart"] = cart;
+            }
+            return Redirect("Checkout");
+        }
         public ActionResult AddToCart(int productId)
         {
 
@@ -42,13 +69,14 @@ namespace eShop.Controllers
             else
             {
                 List<Item> cart = (List<Item>)Session["cart"];
+                var count = cart.Count();
                 var product = ctx.Tbl_Product.Find(productId);
-                foreach(var item in cart)
+                for(int i = 0; i < count; i++)
                 {
-                    if (item.Product.ProductId == productId)
+                    if (cart[i].Product.ProductId == productId)
                     {
-                        int prevQty = item.Quantity;
-                        cart.Remove(item);
+                        int prevQty = cart[i].Quantity;
+                        cart.Remove(cart[i]);
                         cart.Add(new Item()
                         {
                             Product = product,
@@ -58,15 +86,18 @@ namespace eShop.Controllers
                     }
                     else
                     {
-                        cart.Add(new Item()
+                        var prd = cart.Where(x => x.Product.ProductId == productId).SingleOrDefault();
+                        if (prd == null)
                         {
-                            Product = product,
-                            Quantity = 1
-                        });
-                        Session["cart"] = cart;
+                            cart.Add(new Item()
+                            {
+                                Product = product,
+                                Quantity = 1
+                            });
+                        }
                     }
                 }
-                
+                Session["cart"] = cart;
             }
             return Redirect("Index");
         }
