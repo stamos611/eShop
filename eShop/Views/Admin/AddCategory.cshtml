@@ -1,0 +1,29 @@
+﻿@model eShop.DAL.Tbl_Category
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+<div class="container">
+
+    @using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.CategoryId)
+
+        <div class="form-group">
+            <label class="control-label">Category Name</label>
+
+            @Html.TextBoxFor(m => m.CategoryName, new { @class = "form-control", placeholder = "Enter category Name", required = "required", autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+        </div>
+
+        <a onclick="window.history.back();" class="btn btn-danger">Cancel</a>
+        <input type="submit" class="btn btn-primary" value="Save" />
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Categories","Admin")
+    </div>
+
+</div>

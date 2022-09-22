@@ -40,13 +40,13 @@ namespace eShop.Controllers
 
         public ActionResult AddCategory()
         {
-            return UpdateCategory(0);
+            return View();
         }
 
-        public ActionResult UpdateCategory(int categoryId)
+        public ActionResult UpdateCategory(int categoryId=0)
         {
             CategoryDetail cd;
-                if (categoryId !=null)
+                if (categoryId !=0)
                 {
                     cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unit.GetRepositoryInstance<Tbl_Category>()
                         .GetFirstorDefault(categoryId)));

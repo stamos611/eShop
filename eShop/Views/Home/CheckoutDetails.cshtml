@@ -30,6 +30,8 @@ else
             {
                 int lineTotal = Convert.ToInt32(item.Quantity * item.Product.Price);
                 Total = Convert.ToInt32(@Total + lineTotal);
+
+                Session["SesTotal"] = Total;
                 <tr>
                     <td>@item.Product.ProductName</td>
                     <td>@item.Product.Price</td>
@@ -43,6 +45,6 @@ else
             </tr>
         </tbody>
     </table>
-    <button class="btn btn-success">Payment >></button>
+    <a href="@Url.Action("PaymentWithPaypal","Payment")" class="btn btn-success" >Payment >></a>
 
 }
