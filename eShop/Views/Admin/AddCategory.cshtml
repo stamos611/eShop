@@ -6,7 +6,11 @@
 }
 
 <div class="container">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Add New Category
 
+    </div>
     @using (Html.BeginForm("AddCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.HiddenFor(m => m.CategoryId)
@@ -25,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <<div class="col-md-6">
+        <div class="col-md-6">
             <div class="form-group">
                 @Html.LabelFor(model => model.IsDelete, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
