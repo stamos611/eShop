@@ -50,24 +50,13 @@ namespace eShop.Controllers
             tbl.IsDelete = false;
             return RedirectToAction("Categories");
         }
-
-        //public ActionResult UpdateCategory(int categoryId=0)
-        //{
-        //    CategoryDetail cd;
-        //        if (categoryId !=0)
-        //        {
-        //            cd = JsonConvert.DeserializeObject<CategoryDetail>(JsonConvert.SerializeObject(_unit.GetRepositoryInstance<Tbl_Category>()
-        //                .GetFirstorDefault(categoryId)));
-        //        }
-        //        else
-        //        {
-        //            cd = new CategoryDetail();
-        //        }
-        //    return View("UpdateCategory",cd);
-        //}
-
+               
         public ActionResult CategoryEdit(int categoryId)
         {
+            if (_unit.GetRepositoryInstance<Tbl_Category>().GetFirstorDefault(categoryId).IsDelete == true)
+            {
+                _unit.GetRepositoryInstance<Tbl_Category>().Remove(_unit.GetRepositoryInstance<Tbl_Category>().GetFirstorDefault(categoryId));
+            };
             return View(_unit.GetRepositoryInstance<Tbl_Category>().GetFirstorDefault(categoryId));
         }
 

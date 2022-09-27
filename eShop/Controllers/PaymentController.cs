@@ -53,7 +53,7 @@ namespace eShop.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return View("SuccessView");
+                return View("FailureView");
             }
             return View("SuccessView");
         }

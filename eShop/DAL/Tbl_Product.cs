@@ -19,7 +19,12 @@ namespace eShop.DAL
         {
             this.Tbl_Cart = new HashSet<Tbl_Cart>();
         }
-    
+
+        internal static object Find(int? productId)
+        {
+            throw new NotImplementedException();
+        }
+
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> CategoryId { get; set; }

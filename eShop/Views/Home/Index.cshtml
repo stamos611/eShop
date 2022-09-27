@@ -43,7 +43,7 @@
         <span class="fa fa-chevron-right"></span>
     </a>
 </div>
-<div class="olContent f1"><h2 style="color:black">Search Product/Category</h2></div>
+<div class="olContent f1"><h2 style="color:black">Search Product</h2></div>
 <form method="post">
     <div class="olSearch fr">
         <input type="text" name="search" placeholder="Enter Keyword" class="inputComn form-control" />
@@ -66,11 +66,13 @@
     @foreach (var item in Model.ListOfProducts)
     {
         <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
-            <div class="thumbnail product-item" style="height:300px">
-
-                <img class="img-responsive" title="Click to View Product detail"
-                     style="cursor:pointer;height:160px;width:100%"
-                     src="~/ProductImg/@item.ProductImage" />
+            <div class="thumbnail product-item" style="height:300px">               
+                    <img class="img-responsive" title="Click to View Product detail"
+                         style="cursor:pointer;height:160px;width:100%"
+                         src="~/ProductImg/@item.ProductImage" />
+                    
+                        @Html.ActionLink("Details", "GetProduct",new { productId = item.ProductId })
+                    
 
                 <div class="caption">
                     <h5>@item.ProductName</h5>
@@ -78,16 +80,16 @@
 
                     @if (item.Quantity > 0)
                     {
-                        using (Html.BeginForm("AddToCart", "Home", new { productId =item.ProductId }, FormMethod.Post))
+                        using (Html.BeginForm("AddToCart", "Home", new { productId = item.ProductId }, FormMethod.Post))
                         {
                             <button type="submit" class="pull-rigt"><i class="fa fa-shopping-cart"></i></button>
                         }
                         <p>Avallable</p>
                     }
-                else
-                {
-                    <p>Not Avallable</p>
-                }
+                    else
+                    {
+                        <p>Not Avallable</p>
+                    }
 
                     <div class="product-item-badge">
                         @if (item.IsFeatured == true)

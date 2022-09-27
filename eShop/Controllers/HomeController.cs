@@ -3,6 +3,7 @@ using eShop.Models.Home;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,6 +18,11 @@ namespace eShop.Controllers
             HomeIndexViewModel model = new HomeIndexViewModel();
             return View(model.CreateModel(search,4,page));
         }
+        public ActionResult GetProduct(int productId=0)
+        {
+            var product = ctx.Tbl_Product.Find(productId);
+            return View(product);
+        }
         public ActionResult Checkout()
         {
             return View();
@@ -29,7 +35,7 @@ namespace eShop.Controllers
         {
             if (Session["cart"] != null)
             {
-                List<Item> cart = (List<Item>)Session["cart"];
+                List<Item> cart = (List<Item>)Session["cart"];              
                 var product = ctx.Tbl_Product.Find(productId);
                 foreach (var item in cart)
                 {
@@ -46,6 +52,7 @@ namespace eShop.Controllers
                             });
                         }
                         break;
+                        
                     }
                 }
                 Session["cart"] = cart;
@@ -63,7 +70,7 @@ namespace eShop.Controllers
                     if (item.Product.ProductId == productId)
                     {
                         int prevQty = item.Quantity;
-                        if (prevQty > 0)
+                        if (prevQty >= 0)
                         {
                             cart.Remove(item);
                             cart.Add(new Item()
@@ -73,6 +80,7 @@ namespace eShop.Controllers
                             });
                         }
                         break;
+
                     }
                 }
                 Session["cart"] = cart;
