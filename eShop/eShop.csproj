@@ -1666,6 +1666,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\MyMainLayout.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="Content\Success_Failure.css" />
     <Content Include="DAL\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1685,6 +1686,7 @@
     <Content Include="images\accessories1.jpg" />
     <Content Include="images\accessories2.jpg" />
     <Content Include="images\armani.jpg" />
+    <Content Include="images\moon.png" />
     <Content Include="images\nikehat.jpg" />
     <Content Include="images\pants.jpg" />
     <Content Include="images\pants1.jpg" />
@@ -1692,6 +1694,7 @@
     <Content Include="images\rayban.jpg" />
     <Content Include="images\search.png" />
     <Content Include="images\shirts1.jpg" />
+    <Content Include="images\sun.png" />
     <Content Include="images\zara.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

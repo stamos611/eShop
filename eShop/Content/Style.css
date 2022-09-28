@@ -1,0 +1,46 @@
+﻿body {
+    
+}
+.form-check-label{
+    padding-top:20px;
+    color:grey;
+    font-size:15px;
+}
+.checkbox{
+    width:300px;
+    margin:100px auto;
+}
+.search{
+    margin-top:15px;
+    color:black;
+    font-size:25px;
+}
+/* mode dark */
+.darkmode {
+    background-color: black;
+    color: white;
+}
+.darkmode .card{
+    background-color:black;
+}
+
+.form-check{
+    margin-top:30px;
+    margin-left:30px;
+}
+/*#{
+    width:50px;
+    height:20px;
+    cursor:pointer;
+}*/
+.cart{
+    color:black;
+    background-color:white;
+}
+.darkmode .search {
+    color:white;
+}
+.darkmode .submit{
+    background-color:white;
+    color:black;
+}

@@ -18,7 +18,7 @@ namespace eShop.Controllers
             HomeIndexViewModel model = new HomeIndexViewModel();
             return View(model.CreateModel(search,4,page));
         }
-        public ActionResult GetProduct(int productId=0)
+        public ActionResult GetProduct(int productId = 0)
         {
             var product = ctx.Tbl_Product.Find(productId);
             return View(product);
